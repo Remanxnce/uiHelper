@@ -21,7 +21,7 @@ export class uiHelper {
      * @param {string} scoreboard 
      */
     static setScoreboard(player, scoreboard){
-        //ui.scoreboard.
+        player.onScreenDisplay.setTitle(`ui.scoreboard.${scoreboard}`)
     }
     /**
      * 
@@ -29,7 +29,9 @@ export class uiHelper {
      * @param {import("./uiHelper").smallPanelContent} content 
      */
     static setPromoPanel(player, content){
-        //ui.promo.
+        if (!content.image) return player.sendMessage(`ui.promo_noimg.`)
+            const fullImage = content.image + (`\t`.repeat(100-content.image.length))
+            player.sendMessage(`ui.promo.${fullImage}${content.title}${content.description ? `\n` + content.description : ""}`)
     }
     /**
      * 
@@ -37,11 +39,15 @@ export class uiHelper {
      * @param {string} content 
      */
     static setEffectPanel(player, content){
-        //ui.effects.
+        player.onScreenDisplay.setTitle(`ui.effects.${content}`)
     }
-    
+    /**
+     * 
+     * @param {*} player 
+     * @param {number} content 
+     */
     static setAbsorptionPanel(player, content){
-        //ui.abs.
+        player.onScreenDisplay.setTitle(`ui.abs.${content}`)
     }
     /**
      * 
@@ -49,6 +55,6 @@ export class uiHelper {
      * @param {number} duration 
      */
     static setTimerBarDuration(player, duration){
-
+        player.onScreenDisplay.setTitle(`ui.timer.${duration}`)
     }
 }
